@@ -115,6 +115,8 @@
   },
   "include": [
     "src/**/*",
-    "test/**/*"
+    "test/**/*",
+    "knexfile.ts",
+    "migrations"
   ] /* Specify files to be included in the program. */
 }
