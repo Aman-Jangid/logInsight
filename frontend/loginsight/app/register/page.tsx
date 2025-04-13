@@ -61,8 +61,6 @@ export default function Register() {
         alert("Something went wrong. Please try again.");
         return;
       }
-      // Handle successful registration
-      // For example, redirect to login page or show a success message
       router.push("/login");
       alert("Account created successfully!");
     } catch (e) {
@@ -93,6 +91,7 @@ export default function Register() {
             <div className="mt-1">
               <input
                 id="name"
+                name="name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -119,6 +118,7 @@ export default function Register() {
             <div className="mt-1">
               <input
                 id="email"
+                name="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -145,6 +145,7 @@ export default function Register() {
             <div className="mt-1">
               <input
                 id="password"
+                name="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
