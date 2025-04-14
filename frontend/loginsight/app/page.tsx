@@ -22,8 +22,7 @@ export default function Home() {
           </button>
           <button
             className="bg-gray-800 text-white px-6 py-3 rounded-lg w-40 hover:bg-gray-700 transition"
-            onClick={() => console.log("Later...")}
-            // onClick={() => redirect("/login")}
+            onClick={() => redirect("/login")}
           >
             Login
           </button>

@@ -2,10 +2,7 @@ import knex from "knex";
 import * as bcrypt from "bcrypt";
 import knexConfig from "../../knexfile";
 
-// SALT_ROUNDS is the number of rounds to use when hashing passwords
 const SALT_ROUNDS = 12;
-
-// initialize knex with the configuration
 const knexInstance = knex(knexConfig);
 
 export interface User {
@@ -59,19 +56,16 @@ export const UserModel = {
   async findByEmail(email: string): Promise<User | undefined> {
     return knexInstance<User>("users").where({ email }).first();
   },
+
+  async verifyPassword(email: string, password: string): Promise<boolean> {
+    const user = await UserModel.findByEmail(email);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    return bcrypt.compare(password, user.password_hash);
+  },
 };
 
 function generateVerificationToken(): string {
   return require("crypto").randomBytes(32).toString("hex");
-}
-
-async function verifyPassword(
-  email: string,
-  password: string
-): Promise<boolean> {
-  const user = await this.findByEmail(email);
-  if (!user) {
-    throw new Error("User not found");
-  }
-  return bcrypt.compare(password, user.password);
 }

@@ -33,7 +33,7 @@ export default function Register() {
     setIsLoading(true);
     try {
       // temp api url
-      const url = "http://localhost:5000/register";
+      const url = "http://192.168.0.6:5000/register";
       const response = await fetch(url, {
         method: "POST",
         headers: {
