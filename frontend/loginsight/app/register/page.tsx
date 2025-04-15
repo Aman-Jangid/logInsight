@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { AUTH_URL } from "../actions/apiConfig";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -33,8 +34,8 @@ export default function Register() {
     setIsLoading(true);
     try {
       // temp api url
-      const url = "http://192.168.0.6:5000/register";
-      const response = await fetch(url, {
+      console.log(AUTH_URL);
+      const response = await fetch(`${AUTH_URL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

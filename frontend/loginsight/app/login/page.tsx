@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { AUTH_URL } from "../actions/apiConfig";
 
 export default function Login() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function Login() {
     setError(null);
 
     try {
-      const response = await fetch("http://192.168.0.6:5000/login", {
+      const response = await fetch(`${AUTH_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
