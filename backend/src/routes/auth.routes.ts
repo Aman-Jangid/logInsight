@@ -4,9 +4,9 @@ import { UserModel } from "../models/User";
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 
-const router = new Router();
+const authRouter = new Router();
 
-router.post("/register", async (ctx) => {
+authRouter.post("/register", async (ctx) => {
   try {
     const { email, name, password } = ctx.request.body as {
       email: string;
@@ -43,7 +43,7 @@ router.post("/register", async (ctx) => {
   }
 });
 
-router.post("/login", async (ctx) => {
+authRouter.post("/login", async (ctx) => {
   try {
     const { email, password } = ctx.request.body as {
       email: string;
@@ -126,7 +126,7 @@ async function authMiddleware(ctx: any, next: () => Promise<any>) {
 }
 
 // example protected route - testing validation using jwt token
-router.get("/profile", authMiddleware, async (ctx) => {
+authRouter.get("/profile", authMiddleware, async (ctx) => {
   try {
     if (!ctx.state.user || !ctx.state.user.email) {
       ctx.status = 401;
@@ -157,4 +157,4 @@ router.get("/profile", authMiddleware, async (ctx) => {
   }
 });
 
-export default router;
+export default authRouter;

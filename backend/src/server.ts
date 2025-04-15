@@ -7,7 +7,7 @@ import * as cors from "@koa/cors";
 import "dotenv/config";
 import knex from "knex";
 import knexConfig from "../knexfile";
-import router from "./routes/auth";
+import router from "./routes";
 
 const app = new Koa();
 
