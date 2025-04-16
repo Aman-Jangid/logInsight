@@ -18,6 +18,7 @@ app.use(logger());
 app.use(bodyParser());
 
 // Routes
+console.log(router.stack);
 app.use(router.routes());
 app.use(router.allowedMethods());
 

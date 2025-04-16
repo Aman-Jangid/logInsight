@@ -1,9 +1,9 @@
 import Router = require("koa-router");
 import { Log, LogModel } from "../models/Log";
 
-const logRouter = new Router({ prefix: "/logs" });
+const logRouter = new Router();
 
-logRouter.post("/store", async (ctx) => {
+logRouter.post("/log", async (ctx) => {
   try {
     const {
       timestamp,
