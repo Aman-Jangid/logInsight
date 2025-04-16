@@ -28,7 +28,7 @@ describe("Authentication Tests", () => {
 
   it("should register a user", async () => {
     const res = await request(app.callback())
-      .post("/register")
+      .post("/auth/register")
       .send({
         email: `new${Date.now()}@test.com`,
         name: "New User",
@@ -43,7 +43,7 @@ describe("Authentication Tests", () => {
   });
 
   it("should log in a user", async () => {
-    const res = await request(app.callback()).post("/login").send({
+    const res = await request(app.callback()).post("/auth/login").send({
       email: user.email,
       password: "password123",
     });
@@ -56,7 +56,7 @@ describe("Authentication Tests", () => {
 
   it("should allow access to a protected route with a valid token", async () => {
     const res = await request(app.callback())
-      .get("/profile")
+      .get("/auth/profile")
       .set("Authorization", `Bearer ${validToken}`);
 
     expect(res.status).toBe(200);
@@ -67,7 +67,7 @@ describe("Authentication Tests", () => {
   });
 
   it("should reject access to a protected route without a token", async () => {
-    const res = await request(app.callback()).get("/profile");
+    const res = await request(app.callback()).get("/auth/profile");
 
     expect(res.status).toBe(401);
     console.log(res.body);
@@ -77,7 +77,7 @@ describe("Authentication Tests", () => {
   it("should reject access to a protected route with an invalid token", async () => {
     const invalidToken = "invalid.token.here";
     const res = await request(app.callback())
-      .get("/profile")
+      .get("/auth/profile")
       .set("Authorization", `Bearer ${invalidToken}`);
 
     expect(res.status).toBe(401);
@@ -92,7 +92,7 @@ describe("Authentication Tests", () => {
     );
 
     const res = await request(app.callback())
-      .get("/profile")
+      .get("/auth/profile")
       .set("Authorization", `Bearer ${expiredToken}`);
 
     expect(res.status).toBe(401);
