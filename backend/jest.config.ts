@@ -1,3 +1,5 @@
+process.env.ENVIRONMENT = "testing";
+
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",

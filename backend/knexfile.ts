@@ -1,4 +1,4 @@
-import { knex, type Knex } from "knex";
+import { type Knex } from "knex";
 import { config } from "./src/configs/db_config";
 
 // Base configuration for all environments
@@ -9,7 +9,6 @@ const baseKnexConfig: Knex.Config = {
     port: config.db.port,
     user: config.db.user,
     password: config.db.password,
-    database: config.db.database,
   } as Knex.StaticConnectionConfig,
   pool: {
     min: 0,
@@ -27,23 +26,32 @@ const knexConfig: { [key: string]: Knex.Config } = {
     ...baseKnexConfig,
     connection: {
       ...(baseKnexConfig.connection as object),
-      database: "loginsight_dev", // database for development
+      database: "loginsight_dev",
     },
   },
   testing: {
     ...baseKnexConfig,
     connection: {
       ...(baseKnexConfig.connection as object),
-      database: "loginsight_test", // database for testing
+      database: "loginsight_test",
     },
   },
   production: {
     ...baseKnexConfig,
     connection: {
       ...(baseKnexConfig.connection as object),
-      database: "loginsight_prod", // database for production
+      database: "loginsight_prod",
     },
   },
 };
 
-export default knexConfig;
+const environment = process.env.ENVIRONMENT || "development";
+const knexConfigForEnv = knexConfig[environment];
+
+if (!knexConfigForEnv) {
+  throw new Error(
+    `Knex configuration for environment "${environment}" is missing.`
+  );
+}
+
+export default knexConfigForEnv;

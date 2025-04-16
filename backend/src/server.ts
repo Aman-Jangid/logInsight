@@ -5,8 +5,10 @@ import * as logger from "koa-logger";
 import * as cors from "@koa/cors";
 
 import "dotenv/config";
+
 import knex from "knex";
 import knexConfig from "../knexfile";
+
 import router from "./routes";
 
 const app = new Koa();
@@ -18,11 +20,11 @@ app.use(logger());
 app.use(bodyParser());
 
 // Routes
-console.log(router.stack);
 app.use(router.routes());
 app.use(router.allowedMethods());
 
 const knexInstance = knex(knexConfig);
+
 // test db connection
 (async () => {
   try {
