@@ -3,6 +3,7 @@ import { UserModel } from "../models/User";
 
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
+import authMiddleware from "../middleware/authMiddleware";
 
 const authRouter = new Router();
 
@@ -86,45 +87,6 @@ authRouter.post("/login", async (ctx) => {
   }
 });
 
-function validateEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-async function authMiddleware(ctx: any, next: () => Promise<any>) {
-  const authHeader = ctx.headers.authorization;
-
-  if (!authHeader) {
-    ctx.status = 401;
-    ctx.body = { error: "No token provided" };
-    return;
-  }
-
-  if (!process.env.JWT_SECRET) {
-    ctx.status = 500;
-    ctx.body = { error: "JWT_SECRET environment variable is not set" };
-    return;
-  }
-
-  const token = authHeader.replace("Bearer ", "");
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
-    ctx.state.user = decoded;
-    await next();
-  } catch (error) {
-    if (error.name === "TokenExpiredError") {
-      ctx.status = 401;
-      ctx.body = { error: "Expired token" };
-    } else if (error.name === "JsonWebTokenError") {
-      ctx.status = 401;
-      ctx.body = { error: "Invalid token" };
-    } else {
-      ctx.status = 401;
-      ctx.body = { error: "Unknown JWT Error" };
-    }
-  }
-}
-
 // example protected route - testing validation using jwt token
 authRouter.get("/profile", authMiddleware, async (ctx) => {
   try {
@@ -141,6 +103,8 @@ authRouter.get("/profile", authMiddleware, async (ctx) => {
       return;
     }
 
+    console.log("From Profile : ", ctx.state);
+
     ctx.status = 200;
     ctx.body = {
       id: user.id,
@@ -156,5 +120,9 @@ authRouter.get("/profile", authMiddleware, async (ctx) => {
     console.error("Error trying to access /profile", error);
   }
 });
+
+function validateEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 
 export default authRouter;

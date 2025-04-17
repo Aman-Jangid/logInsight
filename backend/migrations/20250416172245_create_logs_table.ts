@@ -1,20 +1,32 @@
-import type { Knex } from "knex";
+import { Knex } from "knex";
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable("logs", (table) => {
     table.uuid("id").primary().defaultTo(knex.raw("gen_random_uuid()"));
     table.timestamp("timestamp").notNullable();
-    table.string("level").notNullable();
+    table
+      .enum("level", ["DEBUG", "INFO", "WARN", "ERROR", "FATAL"])
+      .notNullable();
     table.string("message").notNullable();
-    table.string("source").notNullable();
+    table
+      .enum("source", ["SERVER", "APPLICATION", "AUTH", "NETWORK", "DATABASE"])
+      .notNullable();
     table.string("type").notNullable();
-    table.json("metadata").nullable();
+    table.jsonb("metadata").nullable();
     table.string("environment").notNullable();
-    table.uuid("userId").notNullable();
+    table
+      .uuid("userId")
+      .notNullable()
+      .references("id")
+      .inTable("users")
+      .onDelete("CASCADE");
     table.timestamps(true, true);
-  });
-}
+    // soft delete
+    table.timestamp("deleted_at").nullable();
 
-export async function down(knex: Knex): Promise<void> {
-  await knex.schema.dropTableIfExists("logs");
+    table.index(["userId"], "idx_logs_user");
+    table.index(["userId", "timestamp"], "idx_user_timestamp");
+    table.index(["level", "source"]);
+    table.index(["created_at"]);
+  });
 }

@@ -3,8 +3,7 @@ import knexConfig from "../../knexfile";
 
 const knexInstance = knex(knexConfig);
 
-export interface Log {
-  id?: string;
+export interface LogDTO {
   timestamp: string;
   level: string;
   message: string;
@@ -12,23 +11,19 @@ export interface Log {
   type: string;
   metadata: string;
   environment: string;
+}
+
+export interface Log extends LogDTO {
+  id: string;
   userId: string;
 }
 
 export const LogModel = {
-  async store(logData: Log): Promise<Log> {
-    const {
-      timestamp,
-      level,
-      message,
-      source,
-      type,
-      metadata,
-      environment,
-      userId,
-    } = logData;
+  async store(logData: LogDTO, userId: string): Promise<Log> {
+    const { timestamp, level, message, source, type, metadata, environment } =
+      logData;
 
-    if (!timestamp || !level || !message || !source || !type || !userId) {
+    if (!timestamp || !level || !message || !source || !type) {
       throw new Error("Missing required fields for log entry");
     }
 

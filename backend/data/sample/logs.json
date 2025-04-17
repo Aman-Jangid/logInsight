@@ -1,0 +1,165 @@
+[
+  {
+    "level": "ERROR",
+    "source": "server",
+    "message": "Database connection timeout",
+    "metadata": {
+      "error_code": "DB-103",
+      "ip": "192.168.1.45",
+      "endpoint": "/api/users",
+      "response_time_ms": 4500,
+      "stack_trace": "ConnectionTimeoutError: Could not connect to PostgreSQL at 192.168.1.100:5432\n    at ConnectionManager.connect (...)",
+      "os_info": {
+        "name": "Windows",
+        "version": "10.0.19045",
+        "architecture": "x64",
+        "platform": "windows",
+        "release": "10"
+      }
+    },
+    "timestamp": "2023-10-15T14:23:45Z",
+    "type": "log",
+    "environment": "production"
+  },
+  {
+    "level": "INFO",
+    "source": "application",
+    "message": "User registration successful",
+    "metadata": {
+      "user_id": "a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8",
+      "email": "user@example.com",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+      "os_info": {
+        "name": "Linux",
+        "version": "5.15.0-86-generic",
+        "architecture": "x64",
+        "platform": "ubuntu",
+        "release": "20.04"
+      }
+    },
+    "timestamp": "2023-10-15T14:24:10Z",
+    "type": "log",
+    "environment": "production"
+  },
+  {
+    "level": "WARN",
+    "source": "auth",
+    "message": "Multiple failed login attempts",
+    "metadata": {
+      "ip": "203.0.113.42",
+      "username": "admin",
+      "attempts": 5,
+      "user_agent": "curl/7.68.0",
+      "os_info": {
+        "name": "Linux",
+        "version": "6.2.0-26-generic",
+        "architecture": "arm64",
+        "platform": "debian",
+        "release": "11"
+      }
+    },
+    "timestamp": "2023-10-15T14:25:30Z",
+    "type": "log",
+    "environment": "production"
+  },
+  {
+    "level": "DEBUG",
+    "source": "server",
+    "message": "Cache miss for key 'user_12345'",
+    "metadata": {
+      "cache_key": "user_12345",
+      "cache_type": "Redis",
+      "ip": "192.168.1.50",
+      "os_info": {
+        "name": "Windows",
+        "version": "11.0.22621",
+        "architecture": "x64",
+        "platform": "windows",
+        "release": "11"
+      }
+    },
+    "timestamp": "2023-10-15T14:26:00Z",
+    "type": "log",
+    "environment": "production"
+  },
+  {
+    "level": "ERROR",
+    "source": "payment",
+    "message": "Payment gateway timeout",
+    "metadata": {
+      "error_code": "PAY-408",
+      "gateway": "Stripe",
+      "transaction_id": "txn_987654321",
+      "amount": 49.99,
+      "currency": "USD",
+      "os_info": {
+        "name": "Linux",
+        "version": "4.18.0-425.19.2.el8_7.x86_64",
+        "architecture": "x64",
+        "platform": "centos",
+        "release": "8"
+      }
+    },
+    "timestamp": "2023-10-15T14:27:15Z",
+    "type": "log",
+    "environment": "production"
+  },
+  {
+    "level": "INFO",
+    "source": "application",
+    "message": "Password reset email sent",
+    "metadata": {
+      "user_id": "z9y8x7w6-v5u4-t3s2-r1q0-p9o8n7m6l5k4",
+      "email": "resetuser@example.com",
+      "os_info": {
+        "name": "Linux",
+        "version": "5.10.0-21-amd64",
+        "architecture": "x64",
+        "platform": "debian",
+        "release": "10"
+      }
+    },
+    "timestamp": "2023-10-15T14:28:45Z",
+    "type": "log",
+    "environment": "production"
+  },
+  {
+    "level": "WARN",
+    "source": "server",
+    "message": "High memory usage detected",
+    "metadata": {
+      "memory_usage_mb": 8192,
+      "threshold_mb": 8000,
+      "ip": "192.168.1.55",
+      "os_info": {
+        "name": "Windows",
+        "version": "10.0.19044",
+        "architecture": "x64",
+        "platform": "windows",
+        "release": "10"
+      }
+    },
+    "timestamp": "2023-10-15T14:29:30Z",
+    "type": "log",
+    "environment": "production"
+  },
+  {
+    "level": "DEBUG",
+    "source": "auth",
+    "message": "Token validation successful",
+    "metadata": {
+      "token_id": "tok_123456789",
+      "user_id": "u1v2w3x4-y5z6-a7b8-c9d0-e1f2g3h4i5j6",
+      "os_info": {
+        "name": "Linux",
+        "version": "5.4.0-144-generic",
+        "architecture": "x64",
+        "platform": "ubuntu",
+        "release": "18.04"
+      }
+    },
+    "timestamp": "2023-10-15T14:30:00Z",
+    "type": "log",
+    "environment": "production"
+  }
+]

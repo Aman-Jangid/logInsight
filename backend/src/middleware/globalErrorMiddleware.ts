@@ -11,3 +11,5 @@ export const errorHandler = async (ctx: Context, next: Next) => {
     ctx.app.emit("error", error, ctx);
   }
 };
+
+// TODO: Add Custom Error Classes

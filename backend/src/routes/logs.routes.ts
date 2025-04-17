@@ -1,32 +1,22 @@
 import Router = require("koa-router");
-import { Log, LogModel } from "../models/Log";
+import { Log, LogDTO, LogModel } from "../models/Log";
+import { Context } from "koa";
+import { UserModel } from "../models/User";
+import authMiddleware from "../middleware/authMiddleware";
 
 const logRouter = new Router();
 
-logRouter.post("/log", async (ctx) => {
+async function storeLog(data: LogDTO, ctx: Context): Promise<Log> {
+  const { id } = ctx.state.user;
+  return await LogModel.store(data, id);
+}
+
+logRouter.post("/log", authMiddleware, async (ctx) => {
   try {
-    const {
-      timestamp,
-      level,
-      message,
-      source,
-      type,
-      metadata,
-      environment,
-      userId,
-    } = ctx.request.body as Log;
+    const data = ctx.request.body as Log;
 
     // store
-    const log = await LogModel.store({
-      timestamp,
-      level,
-      message,
-      source,
-      type,
-      metadata,
-      environment,
-      userId,
-    });
+    const log = await storeLog(data, ctx);
 
     ctx.status = 201;
     ctx.body = log;
