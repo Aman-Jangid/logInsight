@@ -73,7 +73,7 @@ export const LogModel = {
     try {
       const res = await knexInstance<Log>("logs")
         .where({ id })
-        .update("deleted_at", Date.now());
+        .update("deleted_at", new Date());
       return res > 0;
     } catch (error) {
       console.error(`Error deleting log with id ${id} :`, error);
