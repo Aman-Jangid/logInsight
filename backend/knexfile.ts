@@ -31,6 +31,9 @@ const knexConfig: { [key: string]: Knex.Config } = {
   },
   testing: {
     ...baseKnexConfig,
+    seeds: {
+      directory: "./seeds",
+    },
     connection: {
       ...(baseKnexConfig.connection as object),
       database: "loginsight_test",

@@ -1,4 +1,4 @@
-process.env.ENVIRONMENT = "testing";
+process.env.ENVIRONMENT = "development";
 
 module.exports = {
   preset: "ts-jest",

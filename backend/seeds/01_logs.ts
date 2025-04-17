@@ -9,7 +9,7 @@ export async function seed(knex: Knex): Promise<void> {
     .insert(
       logs.map((log: Log) => ({
         ...log,
-        metadata: JSON.stringify(log.metadata),
+        metadata: log.metadata,
       }))
     );
 }
