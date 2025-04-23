@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 
 const Dashboard = () => {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
 
   return (
     <div className="min-h-screen grid grid-cols-[auto_1fr] grid-rows-[auto_1fr] bg-gray-900 text-gray-300">
@@ -18,7 +18,17 @@ const Dashboard = () => {
         <div className="flex gap-3">
           <div className="w-11 h-11 bg-gray-900 rounded-xl"></div>
           <div className="w-11 h-11 bg-gray-900 rounded-xl"></div>
-          <div className="w-11 h-11 bg-gray-900 rounded-xl"></div>
+          {/* Profile picture */}
+          <div
+            className="w-11 h-11  rounded-xl"
+            style={{
+              backgroundImage:
+                "url('https://preview.redd.it/show-me-your-happy-cat-pictures-videos-v0-v4mpdbiafo8c1.jpeg?width=3472&format=pjpg&auto=webp&s=80688169c8d54d2d64cf390ea9bbaac13e297b55')",
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+            }}
+          ></div>
         </div>
       </header>
 
@@ -40,7 +50,7 @@ const Dashboard = () => {
           <h3 className="text-lg font-semibold mb-4">Services</h3>
           <div className="grid grid-cols-3 gap-4">
             <div className="flex flex-col items-center">
-              <button className="w-14 h-14 bg-gray-900 rounded-xl"></button>
+              <button className="w-14 h-14  rounded-xl bg-blue-500"></button>
               {/* <span className="text-xs mt-0.4">Dashboard</span> */}
             </div>
             <div className="flex flex-col items-center">
@@ -78,9 +88,9 @@ const Dashboard = () => {
         <div className="bg-gray-800 p-4 rounded shadow-md flex-grow flex flex-col gap-4">
           <h3 className="text-lg font-semibold">Filters</h3>
           <div className="flex gap-2">
-            <button className="w-1/3 h-10 bg-gray-900 rounded"></button>
-            <button className="w-1/3 h-10 bg-gray-900 rounded"></button>
-            <button className="w-1/3 h-10 bg-gray-900 rounded"></button>
+            <button className="w-1/3 h-8 bg-gray-900 rounded border-b-4 border-blue-500 "></button>
+            <button className="w-1/3 h-8 bg-gray-900 rounded"></button>
+            <button className="w-1/3 h-8 bg-gray-900 rounded"></button>
           </div>
           <div className="flex-grow bg-gray-900 rounded"></div>
         </div>
