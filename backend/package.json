@@ -27,6 +27,7 @@
     "koa-router": "^13.0.1",
     "pg": "^8.14.1",
     "pgtools": "^1.0.1",
+    "pgvector": "^0.2.0",
     "zod": "^3.24.3"
   },
   "devDependencies": {
