@@ -1,9 +1,11 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
 const Dashboard = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
+  const pathname = usePathname();
 
   return (
     <div className="min-h-screen grid grid-cols-[auto_1fr] grid-rows-[auto_1fr] bg-gray-900 text-gray-300">
@@ -12,7 +14,7 @@ const Dashboard = () => {
         <div className="flex items-center gap-4">
           <div className="text-4xl font-bold">LI</div>
           <div className="text-lg">
-            {">"} {window.location.pathname.split("/").pop()}
+            {">"} {pathname.replace("/", "")}
           </div>
         </div>
         <div className="flex gap-3">
@@ -34,7 +36,7 @@ const Dashboard = () => {
 
       {/* Sidebar */}
       <aside
-        className={`bg-transparent p-0 h-[calc(100vh-7rem)] flex flex-col gap-6 transition-all duration-300 fixed top-22 left-4 bottom-4 z-10 rounded shadow-md ${
+        className={`bg-transparent p-0 h-[calc(100vh-7rem)] flex flex-col gap-6 transition-all duration-300 fixed top-18 left-4 bottom-4 z-10 rounded shadow-md ${
           isSidebarCollapsed ? "w-64" : "w-124"
         }`}
       >
@@ -98,7 +100,7 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <main
-        className="p-4 fixed top-[calc(4rem+1rem)] left-[calc(16rem+1rem)] right-4 bottom-4 bg-gray-900 rounded shadow-md overflow-auto"
+        className="p-2 fixed top-18 left-[calc(16rem+1rem)] right-4 bottom-4 bg-gray-900 rounded shadow-md overflow-auto"
         style={{
           marginTop: "calc(0.2rem + 1rem)",
           marginLeft: "calc(0.8rem)",
