@@ -2,8 +2,50 @@
 
 import React, { useState } from "react";
 
+// Main Content Container - Content
+import LogsTable from "./Logs";
+import VisualInsights from "./VisualInsights";
+
+import {
+  LayoutDashboard,
+  FileText,
+  Bell,
+  BarChart3,
+  ClipboardList,
+  Plug,
+  Activity,
+  Settings,
+} from "lucide-react";
+
+enum Services {
+  Dashboard = "Dashboard",
+  Logs = "Logs",
+  Alerts = "Alerts",
+  Analytics = "Analytics",
+  Reports = "Reports",
+  Connections = "Connections",
+  Daemon = "Daemon",
+  Settings = "Settings",
+}
+
+const serviceItems = [
+  {
+    key: Services.Dashboard,
+    icon: LayoutDashboard,
+    component: <VisualInsights />,
+  },
+  { key: Services.Logs, icon: FileText, component: <LogsTable /> },
+  { key: Services.Alerts, icon: Bell, component: <></> },
+  { key: Services.Analytics, icon: BarChart3, component: <></> },
+  { key: Services.Reports, icon: ClipboardList, component: <></> },
+  { key: Services.Connections, icon: Plug, component: <></> },
+  { key: Services.Daemon, icon: Activity, component: <></> },
+  { key: Services.Settings, icon: Settings, component: <></> },
+];
+
 const Dashboard = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
+  const [service, setService] = useState<Services>(Services.Dashboard);
 
   return (
     <div className="min-h-screen grid grid-cols-[auto_1fr] grid-rows-[auto_1fr] bg-gray-900 text-gray-300">
@@ -12,7 +54,7 @@ const Dashboard = () => {
         <div className="flex items-center gap-4">
           <div className="text-4xl font-bold">LI</div>
           <div className="text-lg">
-            {">"} {window.location.pathname.split("/").pop()}
+            {">"} {service}
           </div>
         </div>
         <div className="flex gap-3">
@@ -34,7 +76,7 @@ const Dashboard = () => {
 
       {/* Sidebar */}
       <aside
-        className={`bg-transparent p-0 h-[calc(100vh-7rem)] flex flex-col gap-6 transition-all duration-300 fixed top-22 left-4 bottom-4 z-10 rounded shadow-md ${
+        className={`bg-transparent p-0 h-[calc(100vh-7rem)] flex flex-col gap-6 transition-all duration-300 fixed top-18 left-4 bottom-4 z-10 rounded shadow-md ${
           isSidebarCollapsed ? "w-64" : "w-124"
         }`}
       >
@@ -49,38 +91,18 @@ const Dashboard = () => {
         <div className="bg-gray-800 p-4 rounded-xl shadow-md">
           <h3 className="text-lg font-semibold mb-4">Services</h3>
           <div className="grid grid-cols-3 gap-4">
-            <div className="flex flex-col items-center">
-              <button className="w-14 h-14  rounded-xl bg-blue-500"></button>
-              {/* <span className="text-xs mt-0.4">Dashboard</span> */}
-            </div>
-            <div className="flex flex-col items-center">
-              <button className="w-14 h-14 bg-gray-900 rounded-xl"></button>
-              {/* <span className="text-xs mt-0.4">Logs</span> */}
-            </div>
-            <div className="flex flex-col items-center">
-              <button className="w-14 h-14 bg-gray-900 rounded-xl"></button>
-              {/* <span className="text-xs mt-0.4">Alerts</span> */}
-            </div>
-            <div className="flex flex-col items-center">
-              <button className="w-14 h-14 bg-gray-900 rounded-xl"></button>
-              {/* <span className="text-xs mt-0.4">Analytics</span> */}
-            </div>
-            <div className="flex flex-col items-center">
-              <button className="w-14 h-14 bg-gray-900 rounded-xl"></button>
-              {/* <span className="text-xs mt-0.4">Reports</span> */}
-            </div>
-            <div className="flex flex-col items-center">
-              <button className="w-14 h-14 bg-gray-900 rounded-xl"></button>
-              {/* <span className="text-xs mt-0.4">Connections</span> */}
-            </div>
-            <div className="flex flex-col items-center">
-              <button className="w-14 h-14 bg-gray-900 rounded-xl"></button>
-              {/* <span className="text-xs mt-0.4">Daemon</span> */}
-            </div>
-            <div className="flex flex-col items-center">
-              <button className="w-14 h-14 bg-gray-900 rounded-xl"></button>
-              {/* <span className="text-xs mt-0.4">Settings</span> */}
-            </div>
+            {serviceItems.map(({ key, icon: Icon }) => (
+              <div key={key} className="flex flex-col items-center">
+                <button
+                  className={`w-14 h-14 rounded-xl flex items-center justify-center text-white ${
+                    service === key ? "bg-indigo-600" : "bg-gray-900"
+                  }`}
+                  onClick={() => setService(key)}
+                >
+                  <Icon size={22} />
+                </button>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -98,7 +120,7 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <main
-        className="p-4 fixed top-[calc(4rem+1rem)] left-[calc(16rem+1rem)] right-4 bottom-4 bg-gray-900 rounded shadow-md overflow-auto"
+        className="p-2 fixed top-18 left-[calc(16rem+1rem)] right-4 bottom-4 bg-gray-900 rounded shadow-md overflow-auto"
         style={{
           marginTop: "calc(0.2rem + 1rem)",
           marginLeft: "calc(0.8rem)",
@@ -107,34 +129,10 @@ const Dashboard = () => {
           gap: "1rem",
         }}
       >
-        <div
-          className="bg-gray-800 rounded"
-          style={{ gridColumn: "span 3", gridRow: "span 1" }}
-        ></div>
-        <div
-          className="bg-gray-800 rounded"
-          style={{ gridColumn: "span 1", gridRow: "span 2" }}
-        ></div>
-        <div
-          className="bg-gray-800 rounded"
-          style={{ gridColumn: "span 1", gridRow: "span 2" }}
-        ></div>
-        <div
-          className="bg-gray-800 rounded"
-          style={{ gridColumn: "span 1", gridRow: "span 4" }}
-        ></div>
-        <div
-          className="bg-gray-800 rounded"
-          style={{ gridColumn: "span 2", gridRow: "span 1" }}
-        ></div>
-        <div
-          className="bg-gray-800 rounded"
-          style={{ gridColumn: "span 1", gridRow: "span 1" }}
-        ></div>
-        <div
-          className="bg-gray-800 rounded"
-          style={{ gridColumn: "span 1", gridRow: "span 1" }}
-        ></div>
+        {/* Selected Service */}
+        {serviceItems
+          .filter(({ key }) => key === service)
+          .map(({ component }) => component)}
       </main>
     </div>
   );
